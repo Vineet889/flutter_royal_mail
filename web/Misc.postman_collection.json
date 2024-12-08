@@ -1,0 +1,73 @@
+{
+	"info": {
+		"_postman_id": "5b1e176e-87e2-44ec-ae74-ee43d1241730",
+		"name": "Misc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "21949321"
+	},
+	"item": [
+		{
+			"name": "https://api.addressnow.co.uk/CapturePlus/Interactive/Find/v2.00/json3ex.ws?Key=TX12-YY85-MB16-YU94&Country=GBR&SearchTerm=1&LanguagePreference=en&LastId=&SearchFor=Everything&OrderBy=&$block=true&$cache=true",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.addressnow.co.uk/CapturePlus/Interactive/Find/v2.00/json3ex.ws?Key=TX12-YY85-MB16-YU94&Country=GBR&SearchTerm=1&LanguagePreference=en&LastId=&SearchFor=Everything&OrderBy=&$block=true&$cache=true",
+					"protocol": "https",
+					"host": [
+						"api",
+						"addressnow",
+						"co",
+						"uk"
+					],
+					"path": [
+						"CapturePlus",
+						"Interactive",
+						"Find",
+						"v2.00",
+						"json3ex.ws"
+					],
+					"query": [
+						{
+							"key": "Key",
+							"value": "TX12-YY85-MB16-YU94"
+						},
+						{
+							"key": "Country",
+							"value": "GBR"
+						},
+						{
+							"key": "SearchTerm",
+							"value": "1"
+						},
+						{
+							"key": "LanguagePreference",
+							"value": "en"
+						},
+						{
+							"key": "LastId",
+							"value": ""
+						},
+						{
+							"key": "SearchFor",
+							"value": "Everything"
+						},
+						{
+							"key": "OrderBy",
+							"value": ""
+						},
+						{
+							"key": "$block",
+							"value": "true"
+						},
+						{
+							"key": "$cache",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
