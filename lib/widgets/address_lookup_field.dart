@@ -34,6 +34,7 @@ class _AddressLookupFieldState extends State<AddressLookupField> {
   Timer? _debounce;
   List<AddressSuggestion> _suggestions = [];
   bool _isLoading = false;
+  bool _isManualInput = true;
 
   @override
   void initState() {
@@ -43,6 +44,8 @@ class _AddressLookupFieldState extends State<AddressLookupField> {
   }
 
   void _onSearchChanged() {
+    if (!_isManualInput) return;
+    
     if (_debounce?.isActive ?? false) _debounce!.cancel();
     _debounce = Timer(const Duration(milliseconds: 500), () {
       if (_searchController.text.isNotEmpty) {
@@ -128,22 +131,36 @@ class _AddressLookupFieldState extends State<AddressLookupField> {
   }
 
   Future<void> _onSuggestionSelected(AddressSuggestion suggestion) async {
+    // Immediately remove the overlay
     _removeSuggestionsOverlay();
     
     try {
-      final address = await _addressService.retrieveAddress(suggestion.id);
+      _isManualInput = false;
+      
+      // Parse the components from the suggestion text
+      final components = suggestion.parseAddressComponents();
       
       // Update the search field
       _searchController.text = suggestion.text;
       
-      // Update other form fields if controllers are provided
-      widget.addressLine1Controller?.text = address.line1;
-      widget.addressLine2Controller?.text = address.line2;
-      widget.cityController?.text = address.city;
-      widget.postcodeController?.text = address.postalCode;
+      // Immediately update form fields with parsed components
+      widget.addressLine1Controller?.text = components['line1'] ?? '';
+      widget.addressLine2Controller?.text = components['line2'] ?? '';
+      widget.cityController?.text = components['city'] ?? '';
+      widget.postcodeController?.text = components['postcode'] ?? '';
       
       // Notify parent widget
-      widget.onAddressSelected(address);
+      widget.onAddressSelected(Address(
+        company: '',
+        line1: components['line1'] ?? '',
+        line2: components['line2'] ?? '',
+        line3: '',
+        city: components['city'] ?? '',
+        county: '',
+        postalCode: components['postcode'] ?? '',
+        country: 'United Kingdom',
+      ));
+      
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error retrieving address: $e')),
@@ -171,6 +188,9 @@ class _AddressLookupFieldState extends State<AddressLookupField> {
                 )
               : const Icon(Icons.search),
         ),
+        onTap: () {
+          _isManualInput = true;
+        },
       ),
     );
   }
