@@ -1,11 +1,12 @@
-import 'address_service_interface.dart';
+import 'address_service.dart';
 
-class MobileAddressService implements AddressServiceInterface {
+class MobileAddressService implements AddressService {
   @override
   void initializeAddressLookup({
     required String inputId,
     required Function(Map<String, dynamic>?) onSelect,
   }) {
-    // Mobile implementation
+    // Mobile implementation would go here
+    print('Mobile address lookup not implemented');
   }
 }

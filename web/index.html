@@ -21,21 +21,35 @@
   <meta name="description" content="A new Flutter project.">
 
   <!-- Add AddressNow JavaScript -->
-  <script type="text/javascript" src="http://api.addressnow.co.uk/js/addressnow-2.20.min.js?key=tx12-yy85-mb16-yu94"></script>
+  <script src="http://api.addressnow.co.uk/js/addressnow-2.20.min.js?key=tx12-yy85-mb16-yu94"></script>
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="flutter_royal_mail">
+  <meta name="apple-mobile-web-app-title" content="your_app_name">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>flutter_royal_mail</title>
+  <title>Royal Mail Address Lookup</title>
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
-  <script src="flutter_bootstrap.js" async></script>
+  <script>
+    window.addEventListener('load', function(ev) {
+      // Download main.dart.js
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: function(engineInitializer) {
+          engineInitializer.initializeEngine().then(function(appRunner) {
+            appRunner.runApp();
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>

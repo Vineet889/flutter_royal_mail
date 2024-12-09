@@ -1,12 +1,17 @@
 import 'package:flutter/foundation.dart';
-import 'address_service_interface.dart';
 import 'web_address_service.dart';
 import 'mobile_address_service.dart';
 
-AddressServiceInterface getAddressService() {
+abstract class AddressService {
+  void initializeAddressLookup({
+    required String inputId,
+    required Function(Map<String, dynamic>?) onSelect,
+  });
+}
+
+AddressService getAddressService() {
   if (kIsWeb) {
     return WebAddressService();
-  } else {
-    return MobileAddressService();
   }
+  return MobileAddressService();
 }
